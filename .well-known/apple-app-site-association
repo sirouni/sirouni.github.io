@@ -5,6 +5,10 @@
       {
         "appID": "JR6MLGD7C8.Jason-Wang.CodeBreaker",
         "paths": ["/challenge*"]
+      },
+      {
+        "appID": "JR6MLGD7C8.Jason-Wang.Cube-Blast",
+        "paths": ["/p/*", "/p"]
       }
     ]
   }
