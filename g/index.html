@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重力迷题 · Gravity Puzzle</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background: #f3e8d5;
+    color: #4a3728;
+    text-align: center;
+  }
+  .container { padding: 2rem; max-width: 420px; }
+  .board {
+    width: 96px; height: 96px; margin: 0 auto 1.2rem;
+    background: #e3cfa8; border-radius: 16px; position: relative;
+    box-shadow: 0 4px 12px rgba(46,32,20,.18);
+  }
+  .block {
+    position: absolute; width: 34px; height: 34px; border-radius: 8px;
+  }
+  .b1 { background: #4caf6e; left: 10px; top: 10px; }
+  .b2 { background: #e05a5a; right: 10px; bottom: 10px; }
+  h1 { font-size: 1.6rem; margin: 0 0 .3rem; }
+  .sub { font-size: .8rem; letter-spacing: .18em; color: #7a6a58; margin-bottom: 1.2rem; }
+  .bar { width: 56px; height: 5px; background: #b25e44; border-radius: 3px; margin: 0 auto 1.2rem; }
+  .challenge {
+    background: #fffdf8; border: 1px solid rgba(179,155,120,.5);
+    border-radius: 14px; padding: .9rem 1.2rem; margin-bottom: 1.4rem;
+    font-size: 1.02rem; display: none;
+  }
+  .cta {
+    display: inline-block; background: #b25e44; color: #fffdf8;
+    padding: .85rem 2.2rem; border-radius: 12px; text-decoration: none;
+    font-weight: 600; box-shadow: 0 3px 8px rgba(178,94,68,.35);
+  }
+  .note { margin-top: .9rem; font-size: .82rem; color: #7a6a58; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="board"><div class="block b1"></div><div class="block b2"></div></div>
+  <h1>重力迷题</h1>
+  <div class="sub">GRAVITY PUZZLE</div>
+  <div class="bar"></div>
+  <div class="challenge" id="challenge"></div>
+  <!-- TODO(release): replace href with the App Store link, e.g.
+       https://apps.apple.com/app/idXXXXXXXXXX -->
+  <a class="cta" id="cta" href="#">即将上架 App Store</a>
+  <p class="note">已安装游戏？直接点开分享链接即可进入对应关卡。</p>
+</div>
+<script>
+  // Show what the friend is challenging you with
+  var q = new URLSearchParams(location.search);
+  var el = document.getElementById('challenge');
+  if (q.get('daily') !== null) {
+    el.textContent = '好友向你发起：每日挑战 #' + q.get('daily');
+    el.style.display = 'block';
+  } else if (q.get('level')) {
+    el.textContent = '好友向你发起：第 ' + q.get('level') + ' 关挑战';
+    el.style.display = 'block';
+  }
+</script>
+</body>
+</html>

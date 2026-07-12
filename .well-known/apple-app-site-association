@@ -4,11 +4,23 @@
     "details": [
       {
         "appID": "JR6MLGD7C8.Jason-Wang.CodeBreaker",
-        "paths": ["/challenge*"]
+        "paths": [
+          "/challenge*"
+        ]
       },
       {
         "appID": "JR6MLGD7C8.Jason-Wang.Cube-Blast",
-        "paths": ["/p/*", "/p"]
+        "paths": [
+          "/p/*",
+          "/p"
+        ]
+      },
+      {
+        "appID": "JR6MLGD7C8.com.jasonwang.gravitypuzzle",
+        "paths": [
+          "/g/*",
+          "/g"
+        ]
       }
     ]
   }
