@@ -6,7 +6,7 @@
 <title>滑木盘 · Woodslide</title>
 <style>
   body {
-    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans", sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,6 +25,7 @@
   h1 { font-size: 1.6rem; margin: 0 0 .3rem; }
   .sub { font-size: .8rem; letter-spacing: .18em; color: #7a6a58; margin-bottom: 1.2rem; }
   .bar { width: 56px; height: 5px; background: #b25e44; border-radius: 3px; margin: 0 auto 1.2rem; }
+  .desc { font-size: .95rem; color: #5d4a36; margin: 0 0 1.3rem; }
   .challenge {
     background: #fffdf8; border: 1px solid rgba(179,155,120,.5);
     border-radius: 14px; padding: .9rem 1.2rem; margin-bottom: 1.4rem;
@@ -36,36 +37,86 @@
     font-weight: 600; box-shadow: 0 3px 8px rgba(178,94,68,.35);
   }
   .note { margin-top: .9rem; font-size: .82rem; color: #7a6a58; }
-  .desc { font-size: .95rem; color: #5d4a36; margin: 0 0 1.3rem; }
   .links { margin-top: 1.6rem; font-size: .8rem; }
   .links a { color: #7a6a58; text-decoration: none; margin: 0 .5rem; }
+  [data-l]:not(.on) { display: none !important; }
 </style>
 </head>
 <body>
 <div class="container">
-  <img class="appicon" src="icon.png" alt="滑木盘 Woodslide" width="96" height="96">
-  <h1>滑木盘</h1>
-  <div class="sub">WOODSLIDE</div>
+  <img class="appicon" src="icon.png" alt="Woodslide" width="96" height="96">
+  <h1><span data-l="zh">滑木盘</span><span data-l="en">Woodslide</span><span data-l="ja">ウッドスライド</span></h1>
+  <div class="sub">WOODSLIDE · TILT &amp; SLIDE</div>
   <div class="bar"></div>
-  <p class="desc">滑动木盘，方块一滑到底。<br>1000 关滑块解谜 · 每日挑战 · 无限模式。<br><span style="font-size:.82rem;color:#7a6a58">Swipe the tray — blocks slide to the end. 1,000 levels · daily challenge · endless.</span></p>
+  <p class="desc">
+    <span data-l="zh">滑动木盘，方块一滑到底。<br>1000 关滑块解谜 · 每日挑战 · 无限模式。</span>
+    <span data-l="en">Swipe the tray — blocks slide to the end.<br>1,000 levels · daily challenge · endless mode.</span>
+    <span data-l="ja">スワイプでトレイを傾けると、ブロックは最後までスライド。<br>厳選1000ステージ · デイリー挑戦 · エンドレス。</span>
+  </p>
   <div class="challenge" id="challenge"></div>
   <!-- TODO(release): replace href with the App Store link, e.g.
        https://apps.apple.com/app/idXXXXXXXXXX -->
-  <a class="cta" id="cta" href="#">即将上架 App Store</a>
-  <p class="note">已安装游戏？直接点开分享链接即可进入对应关卡。</p>
-  <p class="links"><a href="support/">技术支持 Support</a>·<a href="privacy/">隐私政策 Privacy</a></p>
+  <a class="cta" id="cta" href="#">
+    <span data-l="zh">即将上架 App Store</span>
+    <span data-l="en">Coming soon to the App Store</span>
+    <span data-l="ja">App Store で近日公開</span>
+  </a>
+  <p class="note">
+    <span data-l="zh">已安装游戏？直接点开分享链接即可进入对应关卡。</span>
+    <span data-l="en">Already installed? Tapping a shared link opens that exact level.</span>
+    <span data-l="ja">インストール済みなら、シェアされたリンクからそのステージへ直行。</span>
+  </p>
+  <p class="links">
+    <a href="support/"><span data-l="zh">技术支持</span><span data-l="en">Support</span><span data-l="ja">サポート</span></a>·<a href="privacy/"><span data-l="zh">隐私政策</span><span data-l="en">Privacy</span><span data-l="ja">プライバシー</span></a>
+  </p>
 </div>
 <script>
-  // Show what the friend is challenging you with
-  var q = new URLSearchParams(location.search);
-  var el = document.getElementById('challenge');
-  if (q.get('daily') !== null) {
-    el.textContent = '好友向你发起：每日挑战 #' + q.get('daily');
-    el.style.display = 'block';
-  } else if (q.get('level')) {
-    el.textContent = '好友向你发起：第 ' + q.get('level') + ' 关挑战';
-    el.style.display = 'block';
-  }
+  (function () {
+    var pick = function () {
+      var h = location.hash.replace('#', '');
+      if (h === 'zh' || h === 'en' || h === 'ja') return h;
+      var n = (navigator.language || 'en').toLowerCase();
+      if (n.indexOf('zh') === 0) return 'zh';
+      if (n.indexOf('ja') === 0) return 'ja';
+      return 'en';
+    };
+    var CH = {
+      zh: { daily: function (d) { return '好友向你发起：每日挑战 #' + d; },
+            level: function (n) { return '好友向你发起：第 ' + n + ' 关挑战'; },
+            inf:   function (n) { return '好友向你发起：无限模式第 ' + n + ' 关'; } },
+      en: { daily: function (d) { return 'A friend challenges you: Daily #' + d; },
+            level: function (n) { return 'A friend challenges you: Level ' + n; },
+            inf:   function (n) { return 'A friend challenges you: Endless level ' + n; } },
+      ja: { daily: function (d) { return '友達からの挑戦：デイリー #' + d; },
+            level: function (n) { return '友達からの挑戦：ステージ ' + n; },
+            inf:   function (n) { return '友達からの挑戦：エンドレス ステージ ' + n; } }
+    };
+    var apply = function () {
+      var l = pick();
+      document.documentElement.lang = l === 'zh' ? 'zh-CN' : l;
+      document.title = l === 'zh' ? '滑木盘 · Woodslide' : l === 'ja' ? 'ウッドスライド · Woodslide' : 'Woodslide · Tilt & Slide';
+      var els = document.querySelectorAll('[data-l]');
+      for (var i = 0; i < els.length; i++) {
+        els[i].classList.toggle('on', els[i].getAttribute('data-l') === l);
+      }
+      // Show what the friend is challenging you with
+      var q = new URLSearchParams(location.search);
+      var el = document.getElementById('challenge');
+      var t = CH[l];
+      if (q.get('daily') !== null) {
+        el.textContent = t.daily(q.get('daily') || '');
+        el.style.display = 'block';
+      } else if (q.get('level')) {
+        el.textContent = t.level(q.get('level'));
+        el.style.display = 'block';
+      } else if (q.get('inf')) {
+        el.textContent = t.inf(q.get('n') || '1');
+        el.style.display = 'block';
+      }
+    };
+    window.addEventListener('hashchange', apply);
+    apply();
+  })();
 </script>
 </body>
 </html>
