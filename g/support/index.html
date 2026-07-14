@@ -12,15 +12,21 @@
     color: #4a3728;
     line-height: 1.7;
   }
-  .container { max-width: 560px; margin: 0 auto; padding: 2.5rem 1.4rem 4rem; }
+  .container { max-width: 560px; margin: 0 auto; padding: 2.2rem 1.4rem 4rem; }
   .appicon {
     width: 72px; height: 72px; margin: 0 auto 1rem; display: block;
     border-radius: 17px;
     box-shadow: 0 4px 12px rgba(46,32,20,.18);
   }
   h1 { font-size: 1.5rem; margin: 0 0 .2rem; text-align: center; }
-  .sub { font-size: .78rem; letter-spacing: .18em; color: #7a6a58; text-align: center; margin-bottom: 1.1rem; }
-  .bar { width: 56px; height: 5px; background: #b25e44; border-radius: 3px; margin: 0 auto 1.8rem; }
+  .sub { font-size: .78rem; letter-spacing: .18em; color: #7a6a58; text-align: center; margin-bottom: 1rem; }
+  .bar { width: 56px; height: 5px; background: #b25e44; border-radius: 3px; margin: 0 auto 1.2rem; }
+  .langs { text-align: center; margin-bottom: 1.6rem; font-size: .85rem; }
+  .langs a {
+    color: #7a6a58; text-decoration: none; padding: .2rem .7rem;
+    border: 1px solid rgba(179,155,120,.5); border-radius: 999px; margin: 0 .2rem;
+  }
+  .langs a.on { background: #b25e44; border-color: #b25e44; color: #fffdf8; }
   h2 { font-size: 1.05rem; margin: 1.8rem 0 .5rem; }
   .card {
     background: #fffdf8; border: 1px solid rgba(179,155,120,.5);
@@ -34,39 +40,88 @@
     font-weight: 600; box-shadow: 0 3px 8px rgba(178,94,68,.35); margin-top: 1.2rem;
   }
   .note { margin-top: .9rem; font-size: .82rem; color: #7a6a58; text-align: center; }
-  .en { color: #7a6a58; font-size: .85rem; }
   a { color: #b25e44; }
+  [data-l] { display: none; }
 </style>
 </head>
 <body>
 <div class="container">
-  <img class="appicon" src="../icon.png" alt="滑木盘 Woodslide" width="72" height="72">
-  <h1>技术支持</h1>
-  <div class="sub">WOODSLIDE SUPPORT</div>
+  <img class="appicon" src="../icon.png" alt="Woodslide" width="72" height="72">
+  <h1><span data-l="zh">技术支持</span><span data-l="en">Support</span><span data-l="ja">サポート</span></h1>
+  <div class="sub">WOODSLIDE</div>
   <div class="bar"></div>
+  <nav class="langs">
+    <a href="#zh" id="l-zh">中文</a><a href="#en" id="l-en">English</a><a href="#ja" id="l-ja">日本語</a>
+  </nav>
 
-  <h2>常见问题 · FAQ</h2>
+  <h2><span data-l="zh">常见问题</span><span data-l="en">FAQ</span><span data-l="ja">よくある質問</span></h2>
+
   <div class="card">
-    <b>进度会丢失吗？ / Is my progress safe?</b>
-    <p>关卡进度保存在设备本地，删除 App 会清空进度，更新 App 不受影响。<br>
-    <span class="en">Progress is stored on your device. Updating the app keeps it; deleting the app clears it.</span></p>
-  </div>
-  <div class="card">
-    <b>朋友分享的链接打不开？ / A shared link doesn't open the game?</b>
-    <p>请确认已安装最新版本，并直接在系统浏览器或消息 App 中点击链接（部分应用的内置浏览器需选择「在默认浏览器中打开」）。<br>
-    <span class="en">Make sure the latest version is installed and open the link outside in-app browsers.</span></p>
-  </div>
-  <div class="card">
-    <b>没有声音？ / No sound?</b>
-    <p>游戏尊重系统设置，请检查静音开关与媒体音量，以及游戏内设置中的音效开关。<br>
-    <span class="en">Check the silent switch, media volume, and the in-game sound toggle.</span></p>
+    <b data-l="zh">进度会丢失吗？</b>
+    <b data-l="en">Is my progress safe?</b>
+    <b data-l="ja">進行状況は消えますか？</b>
+    <p data-l="zh">关卡进度保存在设备本地：更新 App 不受影响，删除 App 会清空进度。</p>
+    <p data-l="en">Progress is stored on your device. Updating the app keeps it; deleting the app clears it.</p>
+    <p data-l="ja">進行状況は端末内に保存されます。アップデートでは消えませんが、アプリを削除すると消去されます。</p>
   </div>
 
-  <h2>问题反馈 · Contact</h2>
-  <p style="font-size:.95rem">遇到 Bug、有功能建议，或以上没有解答你的问题？在 GitHub 上告诉我们，通常 1–2 天内回复。<br>
-  <span class="en">Found a bug or have a suggestion? File an issue on GitHub — we usually reply within 1–2 days.</span></p>
-  <a class="cta" href="https://github.com/sirouni/sirouni.github.io/issues/new?labels=woodslide" rel="noopener">提交反馈 · Report an Issue</a>
-  <p class="note"><a href="../">← 返回滑木盘主页 · Back to Woodslide</a></p>
+  <div class="card">
+    <b data-l="zh">朋友分享的链接打不开？</b>
+    <b data-l="en">A shared link doesn't open the game?</b>
+    <b data-l="ja">シェアされたリンクが開けない？</b>
+    <p data-l="zh">请确认已安装最新版本，并在系统浏览器或消息 App 中直接点击链接（部分应用的内置浏览器需选择「在默认浏览器中打开」）。</p>
+    <p data-l="en">Make sure the latest version is installed, and open the link outside in-app browsers (choose "Open in Browser" if needed).</p>
+    <p data-l="ja">最新バージョンをインストールのうえ、アプリ内ブラウザではなく標準ブラウザやメッセージアプリから直接リンクを開いてください。</p>
+  </div>
+
+  <div class="card">
+    <b data-l="zh">没有声音？</b>
+    <b data-l="en">No sound?</b>
+    <b data-l="ja">音が出ない？</b>
+    <p data-l="zh">请检查静音开关与媒体音量，以及游戏内设置中的音效开关。</p>
+    <p data-l="en">Check the silent switch, media volume, and the in-game sound toggle.</p>
+    <p data-l="ja">サイレントスイッチとメディア音量、ゲーム内設定のサウンドをご確認ください。</p>
+  </div>
+
+  <h2><span data-l="zh">问题反馈</span><span data-l="en">Contact</span><span data-l="ja">お問い合わせ</span></h2>
+  <p style="font-size:.95rem">
+    <span data-l="zh">遇到 Bug、有功能建议，或以上没有解答你的问题？在 GitHub 上告诉我们，通常 1–2 天内回复。</span>
+    <span data-l="en">Found a bug or have a suggestion? File an issue on GitHub — we usually reply within 1–2 days.</span>
+    <span data-l="ja">不具合のご報告やご要望は GitHub までお寄せください。通常 1〜2 日以内に返信します。</span>
+  </p>
+  <a class="cta" href="https://github.com/sirouni/sirouni.github.io/issues/new?labels=woodslide" rel="noopener">
+    <span data-l="zh">提交反馈</span><span data-l="en">Report an Issue</span><span data-l="ja">問題を報告する</span>
+  </a>
+  <p class="note"><a href="../">
+    <span data-l="zh">← 返回滑木盘主页</span><span data-l="en">← Back to Woodslide</span><span data-l="ja">← Woodslide トップへ</span>
+  </a></p>
 </div>
+<script>
+  (function () {
+    var pick = function () {
+      var h = location.hash.replace('#', '');
+      if (h === 'zh' || h === 'en' || h === 'ja') return h;
+      var n = (navigator.language || 'en').toLowerCase();
+      if (n.indexOf('zh') === 0) return 'zh';
+      if (n.indexOf('ja') === 0) return 'ja';
+      return 'en';
+    };
+    var apply = function () {
+      var l = pick();
+      document.documentElement.lang = l === 'zh' ? 'zh-CN' : l;
+      document.title = l === 'zh' ? '技术支持 · 滑木盘' : l === 'ja' ? 'サポート · Woodslide' : 'Woodslide Support';
+      var els = document.querySelectorAll('[data-l]');
+      for (var i = 0; i < els.length; i++) {
+        els[i].style.display = els[i].getAttribute('data-l') === l ? '' : 'none';
+      }
+      var ids = ['zh', 'en', 'ja'];
+      for (var j = 0; j < ids.length; j++) {
+        document.getElementById('l-' + ids[j]).className = ids[j] === l ? 'on' : '';
+      }
+    };
+    window.addEventListener('hashchange', apply);
+    apply();
+  })();
+</script>
 </body>
 </html>
