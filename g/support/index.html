@@ -41,7 +41,7 @@
   }
   .note { margin-top: .9rem; font-size: .82rem; color: #7a6a58; text-align: center; }
   a { color: #b25e44; }
-  [data-l] { display: none; }
+  [data-l]:not(.on) { display: none !important; }
 </style>
 </head>
 <body>
@@ -112,7 +112,7 @@
       document.title = l === 'zh' ? '技术支持 · 滑木盘' : l === 'ja' ? 'サポート · Woodslide' : 'Woodslide Support';
       var els = document.querySelectorAll('[data-l]');
       for (var i = 0; i < els.length; i++) {
-        els[i].style.display = els[i].getAttribute('data-l') === l ? '' : 'none';
+        els[i].classList.toggle('on', els[i].getAttribute('data-l') === l);
       }
       var ids = ['zh', 'en', 'ja'];
       for (var j = 0; j < ids.length; j++) {
