@@ -21,6 +21,13 @@
           "/g/*",
           "/g"
         ]
+      },
+      {
+        "appID": "JR6MLGD7C8.com.voiceqr.app",
+        "paths": [
+          "/v",
+          "/v/*"
+        ]
       }
     ]
   }
