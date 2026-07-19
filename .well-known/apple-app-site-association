@@ -28,6 +28,13 @@
           "/v",
           "/v/*"
         ]
+      },
+      {
+        "appID": "JR6MLGD7C8.com.talqo.app",
+        "paths": [
+          "/v",
+          "/v/*"
+        ]
       }
     ]
   }
