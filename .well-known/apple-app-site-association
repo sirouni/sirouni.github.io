@@ -37,5 +37,10 @@
         ]
       }
     ]
+  },
+  "appclips": {
+    "apps": [
+      "JR6MLGD7C8.com.voiceqr.app.Clip"
+    ]
   }
 }
