@@ -12,23 +12,67 @@
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://sirouni.github.io/og-challenge.jpg" />
-    <title>Code Breaker Challenge</title>
+    <meta name="apple-itunes-app" content="app-id=6777428188, app-clip-bundle-id=Jason-Wang.CodeBreaker.Clip, app-clip-display=card">
+    <title>Mind Cipher · A case from a friend</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; text-align: center; padding: 60px 24px; background: linear-gradient(135deg, #e8f5f3, #f0f4ff); min-height: 100vh; margin: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; text-align: center; padding: 60px 24px; background: #f1e9d6; min-height: 100vh; margin: 0; }
         .card { background: white; border-radius: 20px; padding: 40px 24px; max-width: 360px; margin: 0 auto; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
         .icon { font-size: 64px; margin-bottom: 16px; }
         h1 { font-size: 24px; margin: 0 0 8px; color: #1a1a1a; }
         p { color: #666; font-size: 15px; line-height: 1.5; }
-        .btn { display: inline-block; background: #2a9d8f; color: white; text-decoration: none; padding: 14px 32px; border-radius: 12px; font-weight: 700; font-size: 16px; margin-top: 20px; }
-        .btn:hover { background: #238b7e; }
+        .btn { display: inline-block; background: #b8322b; color: white; text-decoration: none; padding: 14px 32px; border-radius: 12px; font-weight: 700; font-size: 16px; margin-top: 20px; }
+        [hidden] { display: none !important; }
+        .btn:hover { background: #962923; }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="icon">🔐</div>
-        <h1>You've been challenged!</h1>
-        <p>Someone challenged you to crack their secret code. Download Code Breaker to accept the challenge.</p>
-        <a class="btn" href="https://apps.apple.com/app/id000000000">Download on App Store</a>
+        <h1 id="title">A case from a friend</h1>
+        <p id="intro">Crack your friend’s code. On iPhone, use the App Clip card to play without installing the full app.</p>
+        <p id="details"></p>
+        <a class="btn" id="play" hidden>Play this case</a>
+        <p id="safari">If the App Clip card doesn’t appear in your chat browser, open this link in Safari.</p>
+        <a class="btn" href="https://apps.apple.com/app/id6777428188" id="install">Get the full app</a>
     </div>
+<script>
+    const params = new URLSearchParams(location.search);
+    const chinese = /^zh/i.test(navigator.language);
+    const traditional = /Hant|TW|HK|MO/i.test(navigator.language);
+    const text = chinese ? (traditional ? {
+      title: '朋友寄來了一份案件', intro: '破解朋友的密碼。在 iPhone 上，點選 App Clip 卡片即可試玩，無需安裝完整版。',
+      play: '接受挑戰', safari: '若聊天瀏覽器沒有顯示 App Clip 卡片，請用 Safari 開啟此連結。', install: '下載完整版',
+      invalid: '案件連結有誤，請朋友重新分享。', lie: '有一條線索會說謊', classic: '經典案件'
+    } : {
+      title: '朋友寄来了一份案件', intro: '破解朋友的密码。在 iPhone 上，点击 App Clip 卡片即可试玩，无需安装完整版。',
+      play: '接受挑战', safari: '若聊天浏览器没有显示 App Clip 卡片，请用 Safari 打开此链接。', install: '下载完整版',
+      invalid: '案件链接有误，请朋友重新分享。', lie: '有一条线索会说谎', classic: '经典案件'
+    }) : {
+      title: 'A case from a friend', intro: 'Crack your friend’s code. On iPhone, use the App Clip card to play without installing the full app.',
+      play: 'Play this case', safari: 'If the App Clip card doesn’t appear in your chat browser, open this link in Safari.', install: 'Get the full app',
+      invalid: 'This case link is invalid. Ask your friend to share it again.', lie: 'One clue can lie', classic: 'Classic case'
+    };
+    document.documentElement.lang = chinese ? (traditional ? 'zh-Hant' : 'zh-Hans') : 'en';
+    for (const id of ['title', 'intro', 'play', 'safari', 'install']) document.getElementById(id).textContent = text[id];
+    const keys = [...params.keys()];
+    const number = (key, fallback) => /^\d+$/.test(params.get(key) ?? fallback) ? Number(params.get(key) ?? fallback) : NaN;
+    const length = number('l', '4'), colors = number('c', '6'), attempts = number('a', '7');
+    let validSeed = false;
+    try { const raw = params.get('s'); const seed = /^\d+$/.test(raw ?? '') ? BigInt(raw) : 0n; validSeed = seed > 0n && seed <= 18446744073709551615n; } catch {}
+    const valid = new Set(keys).size === keys.length && validSeed && length >= 3 && length <= 6 && colors >= 4 && colors <= 8 &&
+      attempts >= 1 && attempts <= 30 && ['0','1'].includes(params.get('m') ?? '0') && ['0','1'].includes(params.get('d') ?? '0') &&
+      (params.get('d') === '1' || colors >= length);
+    if (valid) {
+      const link = new URL('https://appclip.apple.com/id');
+      link.searchParams.set('p', 'Jason-Wang.CodeBreaker.Clip');
+      for (const key of ['s','l','c','a','d','m','f']) if (params.has(key)) link.searchParams.set(key, params.get(key));
+      const play = document.getElementById('play');
+      play.href = link.href;
+      play.hidden = false;
+      document.getElementById('details').textContent = `${length} × ${colors} · ${attempts} · ${params.get('m') === '1' ? text.lie : text.classic}`;
+    } else if (params.has('s')) {
+      document.getElementById('intro').textContent = text.invalid;
+    }
+    </script>
 </body>
 </html>
